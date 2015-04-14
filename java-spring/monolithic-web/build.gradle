@@ -16,5 +16,10 @@ dependencies {
 
 }
 
+bootRepackage {
+    mainClass = 'net.chrisrichardson.eventstore.javaexamples.banking.web.main.BankingMain'
+}
+
+
 
 

@@ -1,10 +1,15 @@
 
+apply plugin: 'spring-boot'
+
 dependencies {
     compile project(":commandside-backend-accounts")
     compile project(":web-common")
 
+    compile "net.chrisrichardson.eventstore.client:eventstore-jdbc:$eventStoreClientVersion"
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
 }
 
-
+bootRepackage {
+    mainClass = 'ro.ciprian.accounts.BankingMain'
+}
 

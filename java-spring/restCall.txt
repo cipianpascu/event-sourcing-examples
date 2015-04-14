@@ -1,0 +1,31 @@
+docker run -d -p 27017:27017 --name test-mongo  mongo mongod --smallfiles
+
+
+
+//first account
+POST http://localhost:8080/accounts
+{
+	"initialBalance" : 12000
+}
+
+{"accountId":"0000014ca39d9b81-0000000000e00000"}
+
+//second account
+POST http://localhost:8080/accounts
+{
+	"initialBalance" : 1000
+}
+
+{"accountId":"0000014ca3a6021d-0000000000e00000"}
+
+//transfer 1000
+POST http://localhost:8080/transfers
+{
+	"fromAccountId" : "0000014ca39d9b81-0000000000e00000",
+	"toAccountId" : "0000014ca3a6021d-0000000000e00000",
+	"amount" : 1000
+}
+{"moneyTransferId":"0000014ca3b3a68a-0000000000e00000"}
+
+//get info about account
+GET http://localhost:8080/accounts/{accountId}
