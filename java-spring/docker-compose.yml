@@ -7,18 +7,18 @@ zookeeper:
     - "2181:2181"
 database:
   image: mongo:latest
-  command: 
-	- mongod --smallfiles
+  hostname: database
+  command: mongod --smallfiles
   ports:
-	- "27017:27017"
+    - "27017:27017"
 commandaccounts:
   image: java:8
+  working_dir: /app
   volumes:
-	- ./commandside-web-accounts/build/libs/:/app
-  command: 
-	- java -jar /app/commandside-web-accounts.jar
+    - ./commandside-web-accounts/build/libs:/app
+  command: java -jar /app/commandside-web-accounts.jar
   ports:
     - "8080:8080"
   links:
-	- database
+    - database
     - zookeeper
