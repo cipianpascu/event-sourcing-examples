@@ -16,9 +16,34 @@ commandaccounts:
   working_dir: /app
   volumes:
     - ./commandside-web-accounts/build/libs:/app
-  command: java -jar /app/commandside-web-accounts.jar
+  command: java -jar /app/commandside-web-accounts.jar --spring.data.mongodb_uri=mongodb://192.168.40.133/CQRS
   ports:
     - "8080:8080"
   links:
     - database
     - zookeeper
+commandtransactions:
+  image: java:8
+  working_dir: /app
+  volumes:
+    - ./commandside-web-transactions/build/libs:/app
+  command: java -jar /app/commandside-web-transactions.jar --spring.data.mongodb_uri=mongodb://192.168.40.133/CQRS
+  ports:
+    - "8081:8080"
+  links:
+    - database
+    - zookeeper
+querryaccounts:
+  image: java:8
+  working_dir: /app
+  volumes:
+    - ./queryside-web/build/libs:/app
+  command: java -jar /app/queryside-web.jar --spring.data.mongodb_uri=mongodb://192.168.40.133/CQRS
+  ports:
+    - "8082:8080"
+  links:
+    - database
+    - zookeeper
+  environment:
+    SPRING_DATA_MONGODB_URI=mongodb://database/CQRS
+
